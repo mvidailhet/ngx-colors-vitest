@@ -1,1 +1,17 @@
-<h1>{{ title() }}</h1>
+<main class="page">
+  <h1>{{ title() }}</h1>
+
+  <section class="color-picker" aria-label="Color picker">
+    <ngx-colors
+      ngxColorsTrigger
+      [(color)]="selectedColor"
+      outputModel="HEXA"
+      theme="auto"
+    ></ngx-colors>
+
+    <div class="selected-color">
+      <span class="swatch" [style.background]="selectedColor"></span>
+      <span>{{ selectedColor }}</span>
+    </div>
+  </section>
+</main>

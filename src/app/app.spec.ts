@@ -1,8 +1,44 @@
 import { TestBed } from '@angular/core/testing';
-import { App } from './app';
+
+vi.mock('ngx-colors', async () => {
+  const { Component, Directive, EventEmitter, Input, Output } = await import('@angular/core');
+
+  class MockNgxColorsComponent {
+    color = '';
+    outputModel = '';
+    theme = '';
+    colorChange = new EventEmitter<string>();
+  }
+
+  Input()(MockNgxColorsComponent.prototype, 'color');
+  Input()(MockNgxColorsComponent.prototype, 'outputModel');
+  Input()(MockNgxColorsComponent.prototype, 'theme');
+  Output()(MockNgxColorsComponent.prototype, 'colorChange');
+  Component({
+    selector: 'ngx-colors',
+    standalone: true,
+    template: '',
+  })(MockNgxColorsComponent);
+
+  class MockNgxColorsTriggerDirective {}
+
+  Directive({
+    selector: '[ngxColorsTrigger]',
+    standalone: true,
+  })(MockNgxColorsTriggerDirective);
+
+  return {
+    NgxColorsComponent: MockNgxColorsComponent,
+    NgxColorsTriggerDirective: MockNgxColorsTriggerDirective,
+  };
+});
 
 describe('App', () => {
+  let App: typeof import('./app').App;
+
   beforeEach(async () => {
+    App = (await import('./app')).App;
+
     await TestBed.configureTestingModule({
       imports: [App],
     }).compileComponents();
