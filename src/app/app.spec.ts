@@ -1,6 +1,8 @@
 import { TestBed } from '@angular/core/testing';
 
-vi.mock('ngx-colors', async () => {
+// If we add this mock, vitest will stop failing with this error : "ReferenceError: Cannot access 'OverlayService' before initialization"
+
+/* vi.mock('ngx-colors', async () => {
   const { Component, Directive, EventEmitter, Input, Output } = await import('@angular/core');
 
   class MockNgxColorsComponent {
@@ -31,7 +33,7 @@ vi.mock('ngx-colors', async () => {
     NgxColorsComponent: MockNgxColorsComponent,
     NgxColorsTriggerDirective: MockNgxColorsTriggerDirective,
   };
-});
+}); */
 
 describe('App', () => {
   let App: typeof import('./app').App;
